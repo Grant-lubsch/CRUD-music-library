@@ -3,9 +3,9 @@ import Axios from "axios";
 import "./App.css";
 
 function App() {
-  const [songName, setSongName] = useState("");
-  const [songArtist, setSongArtist] = useState("");
-  const [songGenre, setSongGenre] = useState("");
+  const [name, setName] = useState("");
+  const [artist, setArtist] = useState("");
+  const [genre, setGenre] = useState("");
   const [songList, setSongList] = useState([]);
   const [editing, setEditing] = useState(false);
   const [editId, setEditId] = useState(null);
@@ -20,17 +20,17 @@ function App() {
 
   const submitInfo = () => {
     Axios.post("http://localhost:3006/api/insert", {
-      songName: songName,
-      songArtist: songArtist,
-      songGenre: songGenre,
+      name: name,
+      artist: artist,
+      genre: genre,
     }).then(() => {
       setSongList([
         ...songList,
-        { songName: songName, songArtist: songArtist, songGenre: songGenre },
+        { songName: name, songArtist: artist, songGenre: genre },
       ]);
-      setSongName("");
-      setSongArtist("");
-      setSongGenre("");
+      setName("");
+      setArtist("");
+      setGenre("");
     });
   };
 
@@ -38,20 +38,20 @@ function App() {
     setEditing(true);
     setEditId(id);
     const songToUpdate = songList.find((val) => val.id === id);
-    setSongName(songToUpdate.songName);
-    setSongArtist(songToUpdate.songArtist);
-    setSongGenre(songToUpdate.songGenre);
+    setName(songToUpdate.songName);
+    setArtist(songToUpdate.songArtist);
+    setGenre(songToUpdate.songGenre);
   };
 
   const handleUpdateSubmit = () => {
     Axios.put(`http://localhost:3006/api/update/${editId}`, {
-      songName: songName,
-      songArtist: songArtist,
-      songGenre: songGenre,
+      name: name,
+      artist: artist,
+      genre: genre,
     }).then(() => {
-      setSongName("");
-      setSongArtist("");
-      setSongGenre("");
+      setName("");
+      setArtist("");
+      setGenre("");
       setEditId(null);
       setEditing(false);
       Axios.get("http://localhost:3006/api/get").then((response) => {
@@ -109,27 +109,27 @@ function App() {
           type="text"
           name="songName"
           placeholder="Song Name:"
-          value={songName}
-          onChange={(e) => setSongName(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
           name="songArtist"
           placeholder="Artist:"
-          value={songArtist}
-          onChange={(e) => setSongArtist(e.target.value)}
+          value={artist}
+          onChange={(e) => setArtist(e.target.value)}
         />
         <input
           type="text"
           name="songGenre"
           placeholder="Genre:"
-          value={songGenre}
-          onChange={(e) => setSongGenre(e.target.value)}
+          value={genre}
+          onChange={(e) => setGenre(e.target.value)}
         />
         {editing ? (
-          <button onClick={handleUpdateSubmit}>Update Contact</button>
+          <button onClick={handleUpdateSubmit}>Update Song</button>
         ) : (
-          <button onClick={submitInfo}>Submit Contact</button>
+          <button onClick={submitInfo}>Submit</button>
         )}
         <br />
         <table border="1">

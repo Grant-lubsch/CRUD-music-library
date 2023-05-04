@@ -25,13 +25,13 @@ app.get("/api/get", (req, res) => {
 
 // Insert a new contact
 app.post("/api/insert", (req, res) => {
-  const songName = req.body.songName;
-  const songArtist = req.body.songArtist;
-  const songGenre = req.body.songGenre;
+  const name = req.body.name;
+  const artist = req.body.artist;
+  const genre = req.body.genre;
 
   const sqlInsert =
     "INSERT into music_library (songName, songArtist, songGenre) VALUES (?, ?, ?)";
-  db.query(sqlInsert, [songName, songArtist, songGenre], (err, result) => {
+  db.query(sqlInsert, [name, artist, genre], (err, result) => {
     console.log(result);
     res.send("Song added successfully!");
   });
@@ -40,13 +40,13 @@ app.post("/api/insert", (req, res) => {
 // Update an existing contact
 app.put("/api/update/:id", (req, res) => {
   const id = req.params.id;
-  const songName = req.body.songName;
-  const songArtist = req.body.songArtist;
-  const songGenre = req.body.songGenre;
+  const name = req.body.name;
+  const artist = req.body.artist;
+  const genre = req.body.genre;
 
   const sqlUpdate =
-    "UPDATE music_library SET songName=?, artistName=?, genreName=? WHERE id=?";
-  db.query(sqlUpdate, [songName, songArtist, songGenre, id], (err, result) => {
+    "UPDATE music_library SET songName=?, songArtist=?, songGenre=? WHERE id=?";
+  db.query(sqlUpdate, [name, artist, genre, id], (err, result) => {
     console.log(result);
     res.send("Song updated successfully!");
   });
