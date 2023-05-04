@@ -149,7 +149,7 @@ function App() {
                   <td>{val.songArtist}</td>
                   <td>{val.songGenre}</td>
                   <td>
-                    <button onClick={() => handleUpdate(val.id)}>Edit</button>
+                    <button onClick={() => handleUpdate(val.id)}>Update</button>
                     &nbsp;&nbsp;&nbsp;
                     <button onClick={() => handleDelete(val.id)}>Delete</button>
                   </td>
