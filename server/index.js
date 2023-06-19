@@ -68,6 +68,13 @@ app.delete("/api/delete/:id", (req, res) => {
   });
 });
 
-app.listen(3006, () => {
-  console.log("Server running on port 3006");
+var myPort = process.env.PORT || 3006;
+
+app.listen(myPort, () => {
+  console.log(`server started on port ` + myPort);
+  console.log(`connected to DB with DB_HOST: ` + process.env.DB_HOST);
+  console.log(`connected to DB with DB_USERNAME: ` + process.env.DB_USERNAME);
+  console.log(
+    `connected to DB with DB_SCHEMA_RECIPES: ` + process.env.DB_SCHEMA_MUSIC
+  );
 });
