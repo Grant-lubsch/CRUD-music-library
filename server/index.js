@@ -1,19 +1,25 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 const app = express();
 const mysql = require("mysql");
 
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "AsDfGh12!",
-  database: "CRUDMusicLibrary",
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USERNAME || "root",
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_SCHEMA_MUSIC || "CRUDMusicLibrary",
 });
 
 app.use(cors());
+app.use(express.static(path.join(__dirname, "build")));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // Get all contacts
 app.get("/api/get", (req, res) => {
