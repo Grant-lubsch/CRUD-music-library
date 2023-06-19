@@ -13,13 +13,13 @@ function App() {
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
-    Axios.get("http://localhost:3006/api/get").then((response) => {
+    Axios.get("/api/get").then((response) => {
       setSongList(response.data);
     });
   }, []);
 
   const submitInfo = () => {
-    Axios.post("http://localhost:3006/api/insert", {
+    Axios.post("/api/insert", {
       name: name,
       artist: artist,
       genre: genre,
@@ -44,7 +44,7 @@ function App() {
   };
 
   const handleUpdateSubmit = () => {
-    Axios.put(`http://localhost:3006/api/update/${editId}`, {
+    Axios.put(`/api/update/${editId}`, {
       name: name,
       artist: artist,
       genre: genre,
@@ -54,15 +54,15 @@ function App() {
       setGenre("");
       setEditId(null);
       setEditing(false);
-      Axios.get("http://localhost:3006/api/get").then((response) => {
+      Axios.get("/api/get").then((response) => {
         setSongList(response.data);
       });
     });
   };
 
   const handleDelete = (id) => {
-    Axios.delete(`http://localhost:3006/api/delete/${id}`).then(() => {
-      Axios.get("http://localhost:3006/api/get").then((response) => {
+    Axios.delete(`/api/delete/${id}`).then(() => {
+      Axios.get("/api/get").then((response) => {
         setSongList(response.data);
       });
     });
